@@ -1,19 +1,31 @@
-<html ng-app="helloWorld">
+<html ng-app="listaTelefonica">
   <head>
-    <title>Hello World</title>
-    <script src="angular.js"></script>
+    <meta charset="utf-8"/>
+    <title>Lista Telefônica</title>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+    <style>
+        .jumbotron{
+            width: 400px;
+            text-align: center;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <script src="lib/angular/angular.js"></script>
     <script>
-      //var app =
-      angular.module("helloWorld", []);
-      // app.controller...
+      angular.module("listaTelefonica", []);
       angular
-        .module("helloWorld")
-        .controller("helloWorldCtrl", function ($scope) {
-          $scope.message = "Hello World!";
+        .module("listaTelefonica")
+        .controller("listaTelefonicaCtrl", function ($scope) {
+          $scope.app = "Lista Telefônica";
         });
     </script>
   </head>
-  <body>
-    <div ng-controller="helloWorldCtrl">{{message}}</div>
+  <body ng-controller="listaTelefonicaCtrl">
+    <div class="jumbotron">
+        <!-- <h4 ng-bind="app"></h4> -->
+        <h4>{{app}}</h4>
+    </div>
   </body>
 </html>
