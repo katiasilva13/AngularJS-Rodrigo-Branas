@@ -36,11 +36,21 @@
                     { nome: "Pedro", telefone: "044999999999" },
                     { nome: "Ana", telefone: "043999999999" },
                     { nome: "Maria", telefone: "042999999999" },
+                    { nome: "Jorge", telefone: "042991999999", operadora: "Tim" },
+                    { nome: "Mariana", telefone: "042988999999", operadora: "Claro" },
                 ];
                 $scope.adicionarContato = function (contato) {
                     $scope.contatos.push(angular.copy(contato));
                     delete $scope.contato;
                 };
+                $scope.operadoras = [
+                    { nome: "Claro", codigo: 21, categoria: "Celular" },
+                    { nome: "Oi", codigo: 14, categoria: "Celular" },
+                    { nome: "Vivo", codigo: 15, categoria: "Celular" },
+                    { nome: "Tim", codigo: 41, categoria: "Celular" },
+                    { nome: "GVT", codigo: 15, categoria: "Fixo" },
+                    { nome: "Embratel", codigo: 21, categoria: "Fixo" }
+                ];
             });
     </script>
 </head>
@@ -52,13 +62,24 @@
             <tr>
                 <th>Nome</th>
                 <th>Telefone</th>
+                <th>Operadora</th>
             </tr>
             <tr ng-repeat="contato in contatos">
-                <td ng-repeat="(key, value) in contato">{{value}}</td>
+                <!-- <td ng-repeat="(key, value) in contato">{{value}}</td> -->
+                <td>{{contato.nome}}</td>
+                <td>{{contato.telefone}}</td>
+                <td>{{contato.operadora.nome}}</td>
             </tr>
         </table>
         <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome" />
-        <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone" />
+        <input class="form-control" type="number" ng-model="contato.telefone" placeholder="Telefone" />
+
+        <!-- <select class="form-control" ng-model="contato.operadora" ng-options="operadora.codigo as operadora.nome for operadora in operadoras"> -->
+        <select class="form-control" ng-model="contato.operadora"
+            ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+            <option value="">Selecione uma operadora</option>
+        </select>
+        <!-- {{operadoras}} -->
         <button class="btn btn-primary" ng-click="adicionarContato(contato)"
             ng-disabled="!contato.nome || !contato.telefone">
             Adicionar contato
