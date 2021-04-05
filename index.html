@@ -39,11 +39,9 @@
             .controller("listaTelefonicaCtrl", function ($scope) {
                 $scope.app = "Lista Telefônica";
                 $scope.contatos = [
-                    { nome: "Pedro", telefone: "044999999999" },
-                    { nome: "Ana", telefone: "043999999999" },
-                    { nome: "Maria", telefone: "042999999999" },
-                    { nome: "Jorge", telefone: "042991999999", operadora: "Tim" },
-                    { nome: "Mariana", telefone: "042988999999", operadora: "Claro" },
+                    { nome: "Aparato Futurista", telefone: "043999999999", cor: "paleturquoise"},
+                    { nome: "Jorge", telefone: "042991999999", cor: "palegreen"},
+                    { nome: "Mariana", telefone: "044988999999", cor: "palevioletred"},
                 ];
                 $scope.adicionarContato = function (contato) {
                     $scope.contatos.push(angular.copy(contato));
@@ -74,14 +72,18 @@
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app}}</h3>
+        <!-- ng-ig= lazy loading, coisas que pesam mais na memória-->
         <!-- <table class="table table-striped"> -->
 
-        <table class="table">
+            <!-- <table ng-hide="contatos.length <= 0" class="table"> -->
+                <!-- <table ng-if="contatos.length > 0" class="table"> -->
+        <table ng-show="contatos.length > 0" class="table">
             <tr>
                 <th></th>
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>Operadora</th>
+                <th></th>
             </tr>
             <!-- <tr ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" ng-repeat="contato in contatos"> -->
                 <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
@@ -90,6 +92,8 @@
                 <td>{{contato.nome}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
+
+				<td><div style="width: 15px; height: 15px;" ng-style="{'background-color': contato.cor}"></div></td>
             </tr>
         </table>
         <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome" />
@@ -105,7 +109,8 @@
             Adicionar contato
         </button>
         <button class="btn btn-danger" ng-click="apagarContatos(contatos)"
-             ng-disabled="!isContatoSelecionado(contatos)"> 
+        ng-disabled="!isContatoSelecionado(contatos)" > 
+        <!-- ng-show="isContatoSelecionado(contatos)" -->
             Apagar contatos
         </button>
     </div>
