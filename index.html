@@ -11,6 +11,9 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .table{
+            margin-top: 20px;
+        }
     </style>
     <script src="lib/angular/angular.js"></script>
     <script>
@@ -19,13 +22,28 @@
         .module("listaTelefonica")
         .controller("listaTelefonicaCtrl", function ($scope) {
           $scope.app = "Lista Telefônica";
+          $scope.contatos = [
+              {nome: "Pedro", telefone:"044999999999"},
+              {nome: "Ana", telefone:"043999999999"},
+              {nome: "Maria", telefone:"042999999999"},
+          ]
         });
     </script>
   </head>
   <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <!-- <h4 ng-bind="app"></h4> -->
-        <h4>{{app}}</h4>
+        <h3>{{app}}</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Nome </th>
+                <th>Telefone </th>
+            </tr>
+            <tr ng-repeat="contato in contatos">
+                <td>{{contato.nome}}</td>
+                <td>{{contato.telefone}}</td>
+            </tr>
+        </table>
     </div>
   </body>
 </html>
