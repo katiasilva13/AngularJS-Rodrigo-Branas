@@ -57,6 +57,16 @@
                     { nome: "GVT", codigo: 15, categoria: "Fixo" },
                     { nome: "Embratel", codigo: 21, categoria: "Fixo" }
                 ];
+                $scope.apagarContatos = function (contatos){
+                    $scope.contatos =  contatos.filter(function (contato) {
+                        if (!contato.selecionado) return contato;
+                   });
+                };
+                $scope.isContatoSelecionado = function (contatos) {
+				return contatos.some(function (contato) {
+					return contato.selecionado;
+				});
+			};
             });
     </script>
 </head>
@@ -93,6 +103,10 @@
         <button class="btn btn-primary" ng-click="adicionarContato(contato)"
             ng-disabled="!contato.nome || !contato.telefone">
             Adicionar contato
+        </button>
+        <button class="btn btn-danger" ng-click="apagarContatos(contatos)"
+             ng-disabled="!isContatoSelecionado(contatos)"> 
+            Apagar contatos
         </button>
     </div>
 </body>
