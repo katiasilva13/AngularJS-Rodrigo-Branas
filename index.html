@@ -33,8 +33,10 @@
             { nome: "Ana", telefone: "043999999999" },
             { nome: "Maria", telefone: "042999999999" },
           ];
-          $scope.adicionarContato = function () {
-              $scope.contatos.push({nome: $scope.nome, telefone: $scope.telefone});
+          $scope.adicionarContato = function (contato) {
+            $scope.contatos.push(angular.copy(contato));
+            //   $scope.contatos.push(contato);
+            //   delete $scope.contato;
           }
         });
     </script>
@@ -52,11 +54,11 @@
           <td ng-repeat="(key, value) in contato">{{value}}</td>
         </tr>
       </table>
-      <input class="form-control" type="text" ng-model="nome">
-      <input class="form-control" type="text" ng-model="telefone">
+      <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome">
+      <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
       <!-- {{nome}}
       {{telefone}} -->
-      <button class="btn btn-primary" ng-click="adicionarContato()">Adicionar Contato</button>
+      <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar Contato</button>
     </div>
   </body>
 </html>
