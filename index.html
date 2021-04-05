@@ -24,6 +24,12 @@
         .btn {
             margin-top: 5px;
         }
+        .selecionado {
+			background-color: palegoldenrod;
+		}
+		.negrito {
+			font-weight: bold;
+		}
     </style>
     <script src="lib/angular/angular.js"></script>
     <script>
@@ -58,14 +64,19 @@
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app}}</h3>
-        <table class="table table-striped">
+        <!-- <table class="table table-striped"> -->
+
+        <table class="table">
             <tr>
+                <th></th>
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>Operadora</th>
             </tr>
-            <tr ng-repeat="contato in contatos">
+            <!-- <tr ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" ng-repeat="contato in contatos"> -->
+                <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
                 <!-- <td ng-repeat="(key, value) in contato">{{value}}</td> -->
+                <td><input type="checkbox" ng-model="contato.selecionado"></td>
                 <td>{{contato.nome}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
@@ -79,7 +90,6 @@
             ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
             <option value="">Selecione uma operadora</option>
         </select>
-        <!-- {{operadoras}} -->
         <button class="btn btn-primary" ng-click="adicionarContato(contato)"
             ng-disabled="!contato.nome || !contato.telefone">
             Adicionar contato
