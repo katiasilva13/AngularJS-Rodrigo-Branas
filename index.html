@@ -38,6 +38,7 @@
     </style>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-messages.js"></script>
+    <script src="lib/angular/angular-locale_pt-br.js"></script>
     <script>
         angular.module("listaTelefonica", ["ngMessages"]);
         angular
@@ -56,12 +57,18 @@
                     $scope.contatoForm.$setPristine();
                 };
                 $scope.operadoras = [
-                    { nome: "Claro", codigo: 21, categoria: "Celular" },
-                    { nome: "Oi", codigo: 14, categoria: "Celular" },
-                    { nome: "Vivo", codigo: 15, categoria: "Celular" },
-                    { nome: "Tim", codigo: 41, categoria: "Celular" },
-                    { nome: "GVT", codigo: 15, categoria: "Fixo" },
-                    { nome: "Embratel", codigo: 21, categoria: "Fixo" }
+                    { nome: "Claro", codigo: 21, categoria: "Celular", preco: 1.5 },
+                    { nome: "Oi", codigo: 14, categoria: "Celular", preco: 1.79 },
+                    { nome: "Vivo", codigo: 15, categoria: "Celular", preco: 1.3 },
+                    { nome: "Tim", codigo: 41, categoria: "Celular", preco: 2 },
+                    { nome: "GVT", codigo: 15, categoria: "Fixo", preco: 3.5 },
+                    { nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 3 }
+                    // { nome: "Claro", codigo: 21, categoria: "Celular" },
+                    // { nome: "Oi", codigo: 14, categoria: "Celular" },
+                    // { nome: "Vivo", codigo: 15, categoria: "Celular" },
+                    // { nome: "Tim", codigo: 41, categoria: "Celular" },
+                    // { nome: "GVT", codigo: 15, categoria: "Fixo" },
+                    // { nome: "Embratel", codigo: 21, categoria: "Fixo" }
                 ];
                 $scope.apagarContatos = function (contatos) {
                     $scope.contatos = contatos.filter(function (contato) {
@@ -93,8 +100,8 @@
                 <th></th>
                 <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
                 <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
-                <th>Operadora</th>
-                <th>Data</th>
+                <th><a href="" ng-click="ordenarPor('data')">Operadora</a></th>
+                <th><a href="" ng-click="ordenarPor('data')">Data</a></th>
             </tr>
             <!-- orderBy:'nome':'false' ou orderBy:'nome' = nome ASC -->
             <!-- orderBy:'nome':'true' = nome DESC -->
@@ -104,7 +111,7 @@
                 <td>{{contato.nome | uppercase}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
-                <td>{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{contato.data | date: 'dd/MM/yyyy HH:mm EEEE'}}</td>
             </tr>
         </table>
         <form name="contatoForm" center-block>
@@ -114,7 +121,7 @@
                 ng-required="true" ng-pattern="/^\d{2}-\d{4,5}-\d{4}$/" />
 
             <select class="form-control" ng-model="contato.operadora"
-                ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+                ng-options="operadora.nome + ' ( ' + (operadora.preco | currency) + ' )' group by operadora.categoria for operadora in operadoras ">
                 <option value="">Selecione uma operadora</option>
             </select>
         </form>
