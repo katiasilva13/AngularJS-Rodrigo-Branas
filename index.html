@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css" />
     <style>
         .jumbotron {
-            width: 500px;
+            width: 400px;
             text-align: center;
             margin-top: 20px;
             margin-left: auto;
@@ -32,10 +32,12 @@
         .negrito {
             font-weight: bold;
         }
+
     </style>
     <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-messages.js"></script>
     <script>
-        angular.module("listaTelefonica", []);
+        angular.module("listaTelefonica", ["ngMessages"]);
         angular
             .module("listaTelefonica")
             .controller("listaTelefonicaCtrl", function ($scope) {
@@ -108,7 +110,15 @@
                 <option value="">Selecione uma operadora</option>
             </select>
         </form>
-        <div ng-if="contatoForm.nome.$error.required && (contatoForm.nome.$dirty || contatoForm.telefone.$valid) " class="
+
+        <div ng-messages="contatoForm.nome.$error">
+            <div ng-message="required && (contatoForm.nome.$dirty || contatoForm.telefone.$valid)" class="alert alert-danger">
+                Nome é obrigatório.
+            </div>
+        </div>
+
+        <!-- <div ng-if="contatoForm.nome.$error.required && (contatoForm.nome.$dirty || contatoForm.telefone.$valid) "
+            class="
             alert alert-danger">
             Nome é obrigatório.
         </div>
@@ -122,10 +132,10 @@
         </div>
         <div ng-if="contatoForm.telefone.$error.pattern " class="
         alert alert-danger">
-        Telefone deve ter formato (xx)xxxxx-xxxx.
-    </div>
+            Telefone deve ter formato (xx)xxxxx-xxxx.
+        </div> -->
         <button class="btn btn-primary" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">
-            <!-- ng-disabled="!contato.nome || !contato.telefone"> -->
+
             Adicionar contato
         </button>
         <button class="btn btn-danger" ng-click="apagarContatos(contatos)"
