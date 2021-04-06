@@ -73,6 +73,10 @@
                         return contato.selecionado;
                     });
                 };
+                $scope.ordenarPor = function (campo) {
+                    $scope.criterioDeOrdenacao = campo;
+                    $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
+                }
             });
     </script>
 </head>
@@ -87,21 +91,20 @@
         <table ng-show="contatos.length > 0" class="table">
             <tr>
                 <th></th>
-                <th>Nome</th>
-                <th>Telefone</th>
+                <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+                <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
                 <th>Operadora</th>
                 <th>Data</th>
             </tr>
-            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:'nome':'true' ">
-                <!-- <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: criterioDeBusca}"> -->
+            <!-- orderBy:'nome':'false' ou orderBy:'nome' = nome ASC -->
+            <!-- orderBy:'nome':'true' = nome DESC -->
+            <!-- filter:{nome: criterioDeBusca} = filtra só por nome (e não por operadora, por exemplo) -->
+            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao ">
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
                 <td>{{contato.nome | uppercase}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
                 <td>{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
-                <td>
-                    <div style="width: 15px; height: 15px;" ng-style="{'background-color': contato.cor}"></div>
-                </td>
             </tr>
         </table>
         <form name="contatoForm" center-block>
