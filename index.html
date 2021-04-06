@@ -48,6 +48,7 @@
                 $scope.adicionarContato = function (contato) {
                     $scope.contatos.push(angular.copy(contato));
                     delete $scope.contato;
+                    $scope.contatoForm.$setPristine();
                 };
                 $scope.operadoras = [
                     { nome: "Claro", codigo: 21, categoria: "Celular" },
@@ -105,11 +106,11 @@
                 <option value="">Selecione uma operadora</option>
             </select>
         </form>
-        <div ng-if="contatoForm.nome.$invalid" class="alert alert-danger">
+        <div ng-if="contatoForm.nome.$invalid && (contatoForm.nome.$dirty || contatoForm.telefone.$valid)"" class="alert alert-danger">
             Nome é obrigatório.  
             <!-- Por favor, verifique e tente novamente. -->
         </div>
-        <div ng-if="contatoForm.telefone.$invalid" class="alert alert-danger">
+        <div ng-if="contatoForm.telefone.$invalid && (contatoForm.telefone.$dirty || contatoForm.nome.$valid)" class="alert alert-danger">
             Telefone é obrigatório. 
             <!-- Por favor, verifique e tente novamente. -->
         </div>
