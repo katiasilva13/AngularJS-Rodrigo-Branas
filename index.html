@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css" />
     <style>
         .jumbotron {
-            width: 400px;
+            width: 800px;
             text-align: center;
             margin-top: 20px;
             margin-left: auto;
@@ -18,7 +18,10 @@
         }
 
         .form-control {
+            margin: auto;
+            float: 0;
             margin-bottom: 5px;
+            width: 500px;
         }
 
         .btn {
@@ -32,7 +35,6 @@
         .negrito {
             font-weight: bold;
         }
-
     </style>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-messages.js"></script>
@@ -43,11 +45,12 @@
             .controller("listaTelefonicaCtrl", function ($scope) {
                 $scope.app = "Lista Telefônica";
                 $scope.contatos = [
-                    { nome: "Aparato Futurista", telefone: "043999999999" },
-                    { nome: "Jorge", telefone: "042991999999" },
-                    { nome: "Mariana", telefone: "044988999999" },
+                    { nome: "Aparato Futurista", telefone: "43-99999-9999", data: new Date(), operadora: { nome: "Embratel", codigo: "21" } },
+                    { nome: "Jorge", telefone: "42-99199-9999" },
+                    { nome: "Mariana", telefone: "44-98899-9999" },
                 ];
                 $scope.adicionarContato = function (contato) {
+                    contato.data=new Date();
                     $scope.contatos.push(angular.copy(contato));
                     delete $scope.contato;
                     $scope.contatoForm.$setPristine();
@@ -77,6 +80,8 @@
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app}}</h3>
+
+		<input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
         <!-- ng-ig= lazy loading, coisas que pesam mais na memória, 
             do contrário pode usar ng-show ou ng-hide-->
         <table ng-show="contatos.length > 0" class="table">
@@ -85,21 +90,21 @@
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>Operadora</th>
-                <th></th>
+                <th>Data</th>
             </tr>
-            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
-
+            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca">
+                <!-- <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:{nome: criterioDeBusca}"> -->
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                <td>{{contato.nome}}</td>
+                <td>{{contato.nome | uppercase}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
-
+                <td>{{contato.data | date: 'dd/MM/yyyy HH:mm'}}</td>
                 <td>
                     <div style="width: 15px; height: 15px;" ng-style="{'background-color': contato.cor}"></div>
                 </td>
             </tr>
         </table>
-        <form name="contatoForm">
+        <form name="contatoForm" center-block>
             <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
                 ng-required="true" ng-minlength="7" />
             <input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone"
@@ -112,7 +117,8 @@
         </form>
 
         <div ng-messages="contatoForm.nome.$error">
-            <div ng-message="required && (contatoForm.nome.$dirty || contatoForm.telefone.$valid)" class="alert alert-danger">
+            <div ng-message="required && (contatoForm.nome.$dirty || contatoForm.telefone.$valid)"
+                class="alert alert-danger">
                 Nome é obrigatório.
             </div>
         </div>
