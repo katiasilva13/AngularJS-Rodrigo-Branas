@@ -91,7 +91,6 @@
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app}}</h3>
-
 		<input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
         <!-- ng-ig= lazy loading, coisas que pesam mais na memória, 
             do contrário pode usar ng-show ou ng-hide-->
@@ -106,14 +105,19 @@
             <!-- orderBy:'nome':'false' ou orderBy:'nome' = nome ASC -->
             <!-- orderBy:'nome':'true' = nome DESC -->
             <!-- filter:{nome: criterioDeBusca} = filtra só por nome (e não por operadora, por exemplo) -->
-            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao ">
+            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | limitTo:2 | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao ">
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                <td>{{contato.nome | uppercase}}</td>
+                <td>{{contato.nome | uppercase | limitTo:3}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
                 <td>{{contato.data | date: 'dd/MM/yyyy HH:mm EEEE'}}</td>
             </tr>
         </table>
+
+        <!-- {{100 | number}} -->
+        <!-- {{100.246 | number:3}} -->
+        {{100.96 | number:1}}
+
         <form name="contatoForm" center-block>
             <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
                 ng-required="true" ng-minlength="7" />
@@ -158,6 +162,7 @@
             ng-disabled="!isContatoSelecionado(contatos)">
             Apagar contatos
         </button>
+
     </div>
     <!-- usar http-server se utilizando o chrome etc -->
     <div ng-include="'footer.html'"></div>
