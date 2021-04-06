@@ -98,20 +98,24 @@
             </tr>
         </table>
         <form name="contatoForm">
-            <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome" ng-required="true" />
-            <input class="form-control" type="number" ng-model="contato.telefone" name="telefone" placeholder="Telefone" ng-required="true" />
+            <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
+                ng-required="true" ng-minlength="7" />
+            <input class="form-control" type="number" ng-model="contato.telefone" name="telefone" placeholder="Telefone"
+                ng-required="true" ng-maxlength="15" />
 
             <select class="form-control" ng-model="contato.operadora"
                 ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
                 <option value="">Selecione uma operadora</option>
             </select>
         </form>
-        <div ng-if="contatoForm.nome.$invalid && (contatoForm.nome.$dirty || contatoForm.telefone.$valid)"" class="alert alert-danger">
-            Nome é obrigatório.  
+        <div ng-if="contatoForm.nome.$invalid && (contatoForm.nome.$dirty || contatoForm.telefone.$valid)"" class="
+            alert alert-danger">
+            Nome é obrigatório.
             <!-- Por favor, verifique e tente novamente. -->
         </div>
-        <div ng-if="contatoForm.telefone.$invalid && (contatoForm.telefone.$dirty || contatoForm.nome.$valid)" class="alert alert-danger">
-            Telefone é obrigatório. 
+        <div ng-if="contatoForm.telefone.$invalid && (contatoForm.telefone.$dirty || contatoForm.nome.$valid)"
+            class="alert alert-danger">
+            Telefone é obrigatório.
             <!-- Por favor, verifique e tente novamente. -->
         </div>
         <button class="btn btn-primary" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">
