@@ -100,8 +100,8 @@
         <form name="contatoForm">
             <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
                 ng-required="true" ng-minlength="7" />
-            <input class="form-control" type="number" ng-model="contato.telefone" name="telefone" placeholder="Telefone"
-                ng-required="true" ng-maxlength="15" />
+            <input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone"
+                ng-required="true" ng-pattern="/^\d{2}-\d{4,5}-\d{4}$/" />
 
             <select class="form-control" ng-model="contato.operadora"
                 ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
@@ -120,10 +120,10 @@
             class="alert alert-danger">
             Telefone é obrigatório.
         </div>
-        <div ng-if="contatoForm.telefone.$error.maxlength " class="
-            alert alert-danger">
-            Telefone deve ter no máximo 15 caracteres.
-        </div>
+        <div ng-if="contatoForm.telefone.$error.pattern " class="
+        alert alert-danger">
+        Telefone deve ter formato (xx)xxxxx-xxxx.
+    </div>
         <button class="btn btn-primary" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">
             <!-- ng-disabled="!contato.nome || !contato.telefone"> -->
             Adicionar contato
