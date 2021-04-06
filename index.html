@@ -43,15 +43,15 @@
         angular.module("listaTelefonica", ["ngMessages"]);
         angular
             .module("listaTelefonica")
-            .controller("listaTelefonicaCtrl", function ($scope) {
+            .controller("listaTelefonicaCtrl", function ($scope, uppercaseFilter) {
                 $scope.app = "Lista Telefônica";
                 $scope.contatos = [
-                    { nome: "Aparato Futurista", telefone: "43-99999-9999", data: new Date(), operadora: { nome: "Embratel", codigo: "21" } },
+                    { nome: uppercaseFilter("Aparato Futurista"), telefone: "43-99999-9999", data: new Date(), operadora: { nome: "Embratel", codigo: "21" } },
                     { nome: "Jorge", telefone: "42-99199-9999" },
                     { nome: "Mariana", telefone: "44-98899-9999" },
                 ];
                 $scope.adicionarContato = function (contato) {
-                    contato.data=new Date();
+                    contato.data = new Date();
                     $scope.contatos.push(angular.copy(contato));
                     delete $scope.contato;
                     $scope.contatoForm.$setPristine();
@@ -63,12 +63,6 @@
                     { nome: "Tim", codigo: 41, categoria: "Celular", preco: 2 },
                     { nome: "GVT", codigo: 15, categoria: "Fixo", preco: 3.5 },
                     { nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 3 }
-                    // { nome: "Claro", codigo: 21, categoria: "Celular" },
-                    // { nome: "Oi", codigo: 14, categoria: "Celular" },
-                    // { nome: "Vivo", codigo: 15, categoria: "Celular" },
-                    // { nome: "Tim", codigo: 41, categoria: "Celular" },
-                    // { nome: "GVT", codigo: 15, categoria: "Fixo" },
-                    // { nome: "Embratel", codigo: 21, categoria: "Fixo" }
                 ];
                 $scope.apagarContatos = function (contatos) {
                     $scope.contatos = contatos.filter(function (contato) {
@@ -91,7 +85,7 @@
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h3>{{app}}</h3>
-		<input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?"/>
+        <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
         <!-- ng-ig= lazy loading, coisas que pesam mais na memória, 
             do contrário pode usar ng-show ou ng-hide-->
         <table ng-show="contatos.length > 0" class="table">
@@ -105,18 +99,15 @@
             <!-- orderBy:'nome':'false' ou orderBy:'nome' = nome ASC -->
             <!-- orderBy:'nome':'true' = nome DESC -->
             <!-- filter:{nome: criterioDeBusca} = filtra só por nome (e não por operadora, por exemplo) -->
-            <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | limitTo:2 | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao ">
+            <tr ng-class="{'selecionado negrito': contato.selecionado}"
+                ng-repeat="contato in contatos  | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao ">
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                <td>{{contato.nome | uppercase | limitTo:3}}</td>
+                <td>{{contato.nome }}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
-                <td>{{contato.data | date: 'dd/MM/yyyy HH:mm EEEE'}}</td>
+                <td>{{contato.data | date: 'dd/MM/yyyy HH:mm EEE'}}</td>
             </tr>
         </table>
-
-        <!-- {{100 | number}} -->
-        <!-- {{100.246 | number:3}} -->
-        {{100.96 | number:1}}
 
         <form name="contatoForm" center-block>
             <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
