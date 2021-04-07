@@ -47,10 +47,11 @@
                 $scope.app = "Lista Telefônica";
                 $scope.contatos = [
                     { nome: uppercaseFilter("Aparato Futurista"), telefone: "43-99999-9999", data: new Date(), operadora: { nome: "Embratel", codigo: "21" } },
-                    { nome: "Jorge", telefone: "42-99199-9999" },
-                    { nome: "Mariana", telefone: "44-98899-9999" },
+                    { nome: uppercaseFilter("Jorge"), telefone: "42-99199-9999" },
+                    { nome: uppercaseFilter("Mariana"), telefone: "44-98899-9999" },
                 ];
                 $scope.adicionarContato = function (contato) {
+                    contato.nome = uppercaseFilter(contato.nome);
                     contato.data = new Date();
                     $scope.contatos.push(angular.copy(contato));
                     delete $scope.contato;
