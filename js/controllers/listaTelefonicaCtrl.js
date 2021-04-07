@@ -1,5 +1,5 @@
 angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI, serialGenerator, uppercaseFilter) {
-	console.log(serialGenerator.generate());
+	// console.log(serialGenerator.generate());
 	$scope.app = "Lista Telefonica";
 	$scope.contatos = [];
 	$scope.operadoras = [];
