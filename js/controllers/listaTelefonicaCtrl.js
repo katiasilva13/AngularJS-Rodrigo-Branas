@@ -22,7 +22,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 	$scope.adicionarContato = function (contato) {
 		contato.serial = serialGenerator.generate();
 		contato.nome = uppercaseFilter(contato.nome);
-		contato.data = new Date();
+		contato.data = new Date(contato.data);
 		contatosAPI.saveContato(contato).then( (res) => {
 			delete $scope.contato;
 			$scope.contatoForm.$setPristine();
