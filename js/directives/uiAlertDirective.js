@@ -11,10 +11,12 @@ angular.module("listaTelefonica").directive("uiAlert", function (){
        scope: {
            //se o nome da propriedade da diretiva e do atributo são iguais, basta pôr o @ ou =
         //    topic: "@title"
-        title: "@",
+        title: "@" //,
         //= two way data binding
-        message: "="
+        // message: "=" //retirar message se for utilzar transclude
 
-       }
+       },
+       //encapsula elementos dentro da diretiva, criando um scope não isolado
+       transclude: true
     }
 });
