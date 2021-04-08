@@ -26,9 +26,9 @@
     <div class="jumbotron">
         <h3>{{app}}</h3>
 
-        <!-- <ui-alert title="Ops, aconteceu um problema!">
+        <ui-alert ng-if="message" title="Ops, aconteceu um problema!">
             {{message}}
-        </ui-alert> -->
+        </ui-alert>
 
         <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
               
@@ -54,7 +54,7 @@
             <input class="form-control" type="text" ng-model="contato.nome" name="nome" placeholder="Nome"
                 ng-required="true" ng-minlength="7" />
             <input class="form-control" type="text" ng-model="contato.telefone" name="telefone" placeholder="Telefone"
-                ng-required="true" ui-phone-number/>
+                ng-required="true" ng-pattern="/^\(\d{2}\)\d{4,5}-\d{4}$/"  ui-phone-number/>
             <input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="Data" ui-date>
             <select class="form-control" ng-model="contato.operadora"
                 ng-options="operadora.nome + ' ( ' + (operadora.preco | currency) + ' )' group by operadora.categoria for operadora in operadoras ">
@@ -66,7 +66,7 @@
                 class="alert alert-danger">
                 Nome é obrigatório.
             </div>
-            <div ng-message="pattern " class="alert alert-danger">
+            <div ng-message="pattern" class="alert alert-danger">
                 Telefone deve ter formato (xx)xxxxx-xxxx.
             </div>
         </div>
