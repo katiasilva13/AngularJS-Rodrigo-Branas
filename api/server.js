@@ -19,7 +19,6 @@ var contatos = [
   {id: 3, nome: "MARIANA ALVES", telefone: "44-99999-9999", data: new Date(), operadora: operadoras[2]}
 ];
 
-
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
