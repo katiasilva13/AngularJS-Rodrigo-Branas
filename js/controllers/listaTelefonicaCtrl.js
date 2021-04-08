@@ -8,7 +8,8 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 		contatosAPI.getContatos().then( (res) => {
 			$scope.contatos = res.data;
 		}).catch( (err) => {
-			$scope.message = "Aconteceu um problema: " + err;
+			// $scope.message = "Aconteceu um problema: " + err;
+			$scope.message = "Não foi possível carregar o dados! ";
 		});
 	};
 
