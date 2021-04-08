@@ -1,7 +1,9 @@
 .ui-alert{
     background-color: #F2DEDE;
-    padding: 20px;
+    padding: 5px;
     border-radius: 5px;
+    margin-left: 90px;
+    margin-right: 90px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -9,10 +11,10 @@
 .ui-alert-title{
     color: #af4341;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .ui-alert-message{
     color:  #af4341;
-    
+    font-size: 16px;
 }
