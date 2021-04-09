@@ -1,6 +1,4 @@
-<!-- <div class="jumbotron"  ng-controller="listaTelefonicaCtrl"> -->
-
-    <div class="jumbotron"  >
+<div class="jumbotron">
 
     <h3>{{app}}</h3>
 
@@ -9,7 +7,7 @@
     </ui-alert>
 
     <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?" />
-          
+
     <table ng-show="contatos.length > 0" class="table">
         <tr>
             <th></th>
@@ -31,8 +29,7 @@
     </table>
     <hr />
     <a class="btn btn-primary" href="#/novoContato">Novo Contato</a>
-    <button class="btn btn-danger" ng-click="apagarContatos(contatos)"
-    ng-disabled="!isContatoSelecionado(contatos)">
-    Apagar contatos
-</button>
+    <button class="btn btn-danger" ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">
+        Apagar contatos
+    </button>
 </div>
