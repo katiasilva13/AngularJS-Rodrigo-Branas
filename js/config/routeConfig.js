@@ -24,6 +24,15 @@ angular
           }
         },
       })
+      .when("/detalhesContato/:id", {
+        templateUrl: "./view/detalhesContato.html",
+        controller: "detalhesContatoCtrl",
+        resolve: {
+          contato: function (contatosAPI, $route) {
+            return contatosAPI.getContato($route.current.params.id);
+          }
+        },
+      })
       .otherwise("/", {
         redirectTo: "./index.html",
       });
