@@ -1,1 +1,1 @@
-angular.module("listaTelefonica", ["ngMessages", "uiMasks", "ngRoute"]);
+angular.module("listaTelefonica", ["ngMessages", "ngRoute", "ngMask"]);
