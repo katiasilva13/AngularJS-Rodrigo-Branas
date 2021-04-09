@@ -33,6 +33,9 @@ angular
           }
         },
       })
+      .when("/error", {
+        templateUrl: "./view/error.html"        
+      })
       .otherwise("/", {
         redirectTo: "./index.html",
       });
